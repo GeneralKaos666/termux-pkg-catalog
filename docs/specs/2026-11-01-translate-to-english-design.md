@@ -34,6 +34,7 @@ behaviour is added or removed.
 | Repo owner | `GeneralKaos666` | Maintainer's GitHub account |
 | App version | `1.0.0` | Fresh project numbering |
 | `catalog_version` | `1` | Fresh catalog history |
+| Local fallback `catalog_version` | `0` when no cache exists | With remote `1` and fallback `1`, `sync_catalog` would report "already latest" and never download the 34-category catalog on a fresh install |
 | `schema_version` | `1` (unchanged) | Validation rule must keep accepting it |
 | Attribution | `LICENSE` keeps the original copyright line | MIT requires keeping the notice |
 | Confirmation words | `y` / `yes` | Spanish `s` / `si` / `sí` dropped, not kept as aliases |
