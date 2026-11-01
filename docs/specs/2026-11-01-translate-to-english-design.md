@@ -17,8 +17,8 @@ behaviour is added or removed.
 1. `grep` finds no Spanish word or accented character in `*.py`, `*.json` or
    `README.md`.
 2. The program runs identically: same screens, same flow, English text.
-3. `catalog.json` holds exactly the same 250 package → command pairs as
-   `HEAD:catalogo.json`, re-parented under English category keys.
+3. `catalog.json` holds exactly the same 250 package → command pairs as the
+   current `catalogo.json` working file, re-parented under English category keys.
 4. AutoSync downloads from the new repository's `catalog.json`.
 5. `python3 -m py_compile` passes for all modules and the program exits
    cleanly when stdin is closed.
@@ -288,9 +288,10 @@ product name and attribution fit without breaking the frame.
 
 1. `python3 -m py_compile termux_pkg_catalog.py catalog.py autosync.py`.
 2. `python3 termux_pkg_catalog.py </dev/null` → English banner/menu, exit 0.
-3. Data diff: apply the category map to `git show HEAD:catalogo.json` and
-   compare package→command pairs with `catalog.json`; expect 34 categories,
-   250 packages, `catalog_version` 1.
+3. Data diff: apply the category map to a snapshot of the original
+   `catalogo.json` taken before editing, and compare package→command pairs
+   with the new `catalog.json`; expect 34 categories, 250 packages,
+   `catalog_version` 1.
 4. `validate_catalog(load("catalog.json"))` passes; mutated copies with
    `schema_version: 2`, `catalog_version: 0` and `packages: {}` raise
    `CatalogError`.
@@ -301,13 +302,17 @@ product name and attribution fit without breaking the frame.
 
 ## 9. Rollout
 
-Three commits, then the remote change:
+The working copy was re-initialised on 2026-11-01: it has no history and no
+remote, and the upstream `lucassogarayDA/Vlsy46` history is intentionally not
+carried over. The new repository starts from an empty tree.
 
-1. `refactor: translate the codebase to English`
-2. `feat: serve the catalog as termux-pkg-catalog version 1`
-3. `docs: rewrite the README for Termux Package Catalog`
+1. `docs: add design spec for the English translation` (done, `61eb8c3`)
+2. `feat: initial English release of Termux Package Catalog` — all five
+   project files, translated, version 1.0.0.
 
-Then `git remote set-url origin https://github.com/GeneralKaos666/termux-pkg-catalog`.
+Then `git remote add origin https://github.com/GeneralKaos666/termux-pkg-catalog`
+and push. No rename history is preserved, so file renames appear as new files
+in the initial commit; attribution lives in `LICENSE` and the README.
 
 ## 10. Out of scope
 
